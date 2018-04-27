@@ -1,0 +1,77 @@
+<template>
+  <div class="container">
+    <div>
+      <button on-click="addItem">添加</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <td>姓名</td>
+          <td>审核状态</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr s-for="item, index in list">
+          <td>{{item.name}}</td>
+          <td>{{item.status === '0' ? '不合格' : item.status === '1' ? '合格' : '未审核'}}</td>
+          <td><button on-click="handleControl(item.status, index)">{{item.status === '0' || item.status === '1' ? '删除' : '审核'}}</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script>
+import { DataTypes } from 'san';
+export default {
+  initData() {
+    return {
+      list: [
+        {
+          name: '张三',
+          status: '0'
+        },
+        {
+          name: '李四',
+          status: '1'
+        }
+      ],
+      firstName: ['张', '赵', '李', '王', '刘'],
+      lastName: ['一', '二', '三', '四', '五']
+    }
+  },
+  addItem() {
+    // console.log(this.data);
+    this.data.push('list', {
+      name: '' + this.data.raw.firstName[Math.floor(Math.random() * 5)] + this.data.raw.lastName[Math.floor(Math.random() * 5)],
+      status: '2'
+    })
+  },
+  handleControl(status, index) {
+    if (status === '0' || status === '1') {
+      this.data.removeAt('list', index);
+    } else {
+      this.data.set(`list[${index}]['status']`, '1')
+    }
+  }
+}
+</script>
+
+<style>
+.container {
+  width: 80%;
+  margin: auto;
+}
+.container > table {
+  border: 1px solid #ccc;
+  border-collapse: collapse; 
+}
+td, thead {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.item {
+  border: 1px solid goldenrod;
+}
+</style>
