@@ -12,7 +12,7 @@
       </div>
       <div>
         <label for="user">年龄</label>
-        <input type="number" id="age" value="{= age =}">
+        <input type="text" id="age" value="{= age =}">
       </div>
       <div>
         <label for="user">简介</label>
@@ -29,7 +29,7 @@ export default {
   dataTypes: {
     name: DataTypes.string,
     age: function (props, propName, componentName) {
-        if (!/\d*/.test(props[propName])) {
+        if (!/^[1-9]\d*$/.test(props[propName])) {
             throw new Error(
                 'Invalid prop `' + propName + '` supplied to' +
                 ' `' + componentName + '`. Validation failed.'
