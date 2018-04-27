@@ -1,0 +1,64 @@
+<template>
+  <div class="container">
+    <div class="display">
+      <div class="item">姓名：{{name}}</div>
+      <div class="item">年龄：{{age}}</div>
+      <div class="item">简介：{{introduction}}</div>
+    </div>
+    <div>
+      <div>
+        <label for="user">姓名</label>
+        <input type="text" id="user" value="{= name =}">
+      </div>
+      <div>
+        <label for="user">年龄</label>
+        <input type="number" id="age" value="{= age =}">
+      </div>
+      <div>
+        <label for="user">简介</label>
+        <input type="text" id="introduction" value="{= introduction =}">
+      </div>
+      
+    </div>
+  </div>
+</template>
+
+<script>
+import { DataTypes } from 'san';
+export default {
+  dataTypes: {
+    name: DataTypes.string,
+    age: function (props, propName, componentName) {
+        if (!/\d*/.test(props[propName])) {
+            throw new Error(
+                'Invalid prop `' + propName + '` supplied to' +
+                ' `' + componentName + '`. Validation failed.'
+            );
+        }
+    },
+    introduction: DataTypes.string
+  },
+  initData() {
+    return {
+      name: '',
+      age: 1,
+      introduction: ''
+    };
+  }
+}
+</script>
+
+<style>
+.container {
+  width: 80%;
+  margin: auto;
+}
+.display {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 20px;
+}
+.item {
+  border: 1px solid goldenrod;
+}
+</style>
