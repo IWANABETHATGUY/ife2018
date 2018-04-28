@@ -1,7 +1,9 @@
 <template>
   <div>
-    <ui-grandson ></ui-grandson>
-    <div class="father">父组件: {{value}}</div>
+    <ui-grandson initVal="{= sonVal =}"></ui-grandson>
+    <div class="son">
+      我是高级组件: <input type="text" s-ref="son-input" value="{{value}}" on-input="handleInput">
+    </div>
   </div>
 </template>
 
@@ -14,7 +16,8 @@ export default {
   },
   initData() {
     return {
-      value: '静静等待用户输入'
+      value: '',
+      sonVal: ''
     }
   },
   messages: {
@@ -22,17 +25,15 @@ export default {
       this.data.set('value', e.value);
       this.dispatch('son-notify', e.value);
     }
+  },
+  handleInput() {
+    this.data.set('sonVal', this.ref('son-input').value);
   }
 }
 </script>
 
 <style>
-.container {
-  width: 80%;
-  margin: auto;
-  background: rgba(221, 171, 221, 0.933);
-}
-.father {
-  color: yellow;
+.son {
+  color: green;
 }
 </style>
