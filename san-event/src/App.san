@@ -1,0 +1,37 @@
+<template>
+  <div class="container">
+    <ui-son></ui-son>
+    <div class="grandfather">我是更高级组件: {{value}}</div>
+  </div>
+</template>
+
+<script>
+import Son from './component/Son.san';
+
+export default {
+  components: {
+    'ui-son': Son
+  },
+  initData() {
+    return {
+      value: '我也静静等待用户输入'
+    }
+  },
+  messages: {
+    'son-notify'(e) {
+      this.data.set('value', e.value);
+    }
+  }
+}
+</script>
+
+<style>
+.container {
+  width: 80%;
+  margin: auto;
+  background: rgba(221, 171, 221, 0.933);
+}
+.grandfather {
+  color: yellow;
+}
+</style>

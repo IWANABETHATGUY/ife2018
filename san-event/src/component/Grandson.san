@@ -1,0 +1,24 @@
+<template>
+  <div>
+    <span>子组件</span>
+    <input type="text" s-ref="input">
+    <input type="button" value="通知父组件" on-click="notify">
+  </div>
+</template>
+
+<script>
+export default {
+  notify() {
+    this.dispatch('notify', this.ref('input').value);
+  }
+}
+</script>
+
+<style>
+.container {
+  width: 80%;
+  margin: auto;
+  background: rgba(221, 171, 221, 0.933);
+}
+
+</style>
