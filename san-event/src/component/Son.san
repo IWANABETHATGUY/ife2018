@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ui-grandson initVal="{= sonVal =}"></ui-grandson>
+    <ui-grandson value="{{sonVal}}"></ui-grandson>
     <div class="son">
       我是高级组件: <input type="text" s-ref="son-input" value="{{value}}" on-input="handleInput">
     </div>

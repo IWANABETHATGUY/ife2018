@@ -1,7 +1,7 @@
 <template>
   <div>
     <span>子组件</span>
-    <input type="text" s-ref="input" value="{{initVal}}">
+    <input type="text" s-ref="input" value="{{value}}">
     <input type="button" value="通知父组件" on-click="notify">
   </div>
 </template>
@@ -10,7 +10,7 @@
 export default {
   initData() {
     return {
-      initVal: ''
+      value: ''
     }
   },
   notify() {
