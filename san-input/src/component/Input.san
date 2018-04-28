@@ -1,0 +1,87 @@
+<template>
+  <div class="container-san-input">
+    <input type="text" 
+    class="san-input {{error ? 'error' : ''}}" 
+    placeholder="{{placeholder}}" 
+    disabled="{{disabled}}"
+    value="{= initValue =}"
+    style="width:{{width}}px;"
+    s-ref="san-input"
+    on-input="handleInput"
+    >
+    <p style="visibility: {{error ? 'visible' : 'hidden'}}" class="san-input-error">{{errorText}}</p>
+  </div>
+</template>
+
+<script>
+import { DataTypes } from 'san';
+export default {
+  initData() {
+    return {
+      initValue: '',
+      disabled: false,
+      placeholder: '',
+      readonly: false,
+      width: 200,
+      error: false,
+      maxLength: Number.MAX_SAFEINTEGER,
+      errorText: 'what the fuck is that'
+    }
+  },
+  handleInput() {
+    let res = this.ref('san-input').value;
+    if ((res.length > this.data.get('maxLength')) && !this.data.get('error')) {
+      this.data.set('error', true);
+    } else if (res.length <= this.data.get('maxLength') && this.data.get('error')) {
+      this.data.set('error', false);
+    }
+  },
+  DataTypes: {
+    initValue: DataTypes.string,
+    disabled: DataTypes.boolean,
+    placeholder: DataTypes.string,
+    readonly: DataTypes.boolean,
+    maxLength: DataTypes.number,
+    errorText: DataTypes.string
+    // width: DataTypes.number
+  }
+}
+</script>
+
+<style>
+.container-san-input {
+  display: flex;
+  align-items: center;
+}
+.san-input {
+  position: relative;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  /* margin: 10px 0; */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
+  transition: all 0.4s;
+  /* letter-spacing: 8px; */
+}
+.san-input-error {
+  height: 20px;
+  line-height: 20px;
+  margin-left: 20px;
+  padding: 0 10px;
+  background:rgba(160, 61, 86, 0.2);
+  color: rgba(216, 20, 69, 0.8);
+}
+.san-input:focus {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+.san-input.error {
+  border: 1px solid rgba(216, 20, 69, 0.644) !important;
+}
+.san-input:enabled:hover {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+</style>

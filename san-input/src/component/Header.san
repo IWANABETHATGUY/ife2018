@@ -1,0 +1,51 @@
+<template>
+  <div class="header-container">
+    <div class="content-container">
+      <div class="main-title"><h1>{{mainTitle}}</h1></div>
+      <div class="side-introduction">
+        <span class="type">{{type}}</span>
+        <span class="side-title-en">{{titleEn}}</span>
+      </div>
+      <div></div>
+    </div>
+
+  </div>
+</template>
+
+<script>
+export default {
+  initData() {
+    return {
+      mainTitle: '',
+      type: '',
+      titleEn: ''
+    }
+  }
+}
+</script>
+
+<style>
+.header-container {
+  background-color: #5c5c5c;
+}
+.content-container {
+  display: flex;
+  padding: 30px 20px;
+}
+.main-title {
+  height: 50px;
+}
+.main-title > h1 {
+  line-height: 50px;
+  color: white;
+}
+.side-introduction {
+  height: 50px;
+}
+.type {
+  height: 25px;
+}
+.side-introduction {
+  height: 25px;
+}
+</style>

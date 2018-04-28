@@ -1,0 +1,56 @@
+<template>
+  <div class="container">
+    <san-header mainTitle="输入框" type="控件" titleEn="input"></san-header>
+    <div class="gallary">
+      <san-input initValue="{= resValue =}" maxLength="{{10}}" placeholder="请输入什么东西..."></san-input>
+      <hr>
+      <san-input maxLength="{{10}}" placeholder="请输入什么东西..." disabled="{{disabled}}"></san-input>
+      <button on-click="handleClickChangeStatus">点击禁用</button>
+    </div>
+    
+  </div>
+</template>
+
+<script>
+import Input from './component/Input.san';
+import Header from './component/Header.san';
+export default {
+  components: {
+    'san-input': Input,
+    'san-header': Header
+  },
+  initData() {
+    return {
+      resValue: '',
+      disabled: false
+    }
+  },
+  handleClickChangeStatus() {
+    this.data.set('disabled', !this.data.get('disabled'));
+  },
+  messages: {
+    'son-notify'(e) {
+      this.data.set('value', e.value);
+    }
+  },
+  handleInput() {
+    let val = this.ref('father-input').value;
+    this.data.set('sonVal', val);
+    this.data.set('grandsonVal', val);
+  }
+}
+</script>
+
+<style>
+.container {
+  width: 80%;
+  margin: auto;
+  border: 1px solid #ccc;
+}
+.gallary {
+  padding: 10px 20px;
+}
+.grandfather {
+  color: purple;
+}
+</style>
