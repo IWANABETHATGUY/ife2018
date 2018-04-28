@@ -1,0 +1,47 @@
+<template>
+  <div class="container">
+    <p>class</p>
+    <div class="display {{active1 ? 'active' : ''}}" on-click="changeClass1">click click</div>
+    <p>style</p>
+    <div style="height: 100px; width: 100px; transition: 1s all ease; {{active2 ? 'background: #ccc' : 'background: yellow'}}" on-click="changeClass2">click click</div>    
+  </div>
+</template>
+
+<script>
+export default {
+  initData() {
+    return {
+      active1: false,
+      active2: false
+    }
+  },
+  changeClass1() {
+    this.data.set('active1', !this.data.raw.active1);
+  },
+  changeClass2() {
+    this.data.set('active2', !this.data.raw.active2);
+  },
+}
+</script>
+
+<style>
+.container {
+  width: 80%;
+  margin: auto;
+}
+.display {
+  height: 100px;
+  width: 100px;
+  background: #ccc;
+  transition: all 1s ease;
+  color: black;
+  text-align: center;
+  line-height: 100px;
+}
+.active {
+  height: 200px;
+  width: 200px;
+  background: yellowgreen;
+  line-height: 200px;
+}
+</style>
