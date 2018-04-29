@@ -1,0 +1,46 @@
+<template>
+  <div class="display-card-container">
+    <strong class="display-card-title">{{title}}</strong>
+    <p class="display-card-details">{{details}}</p>
+    <button class="display-card-confirm"
+    on-click="handleClick">确定</button>
+  </div>
+</template>
+<script>
+export default {
+  initData() {
+    return {
+      title: '',
+      details: '',
+    }
+  },
+  handleClick() {
+    this.dispatch('close');
+  }
+}
+</script>
+
+<style>
+.display-card-container {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ccc;
+  width: 50vh;
+}
+.display-card-title {
+  display: block;
+  margin: auto;
+  color: #fff;
+}
+.display-card-confirm {
+  display: block;
+  border: none;
+  margin: auto;
+  background: rgba(66, 177, 66, 0.644);
+  color: white;
+  padding: 10px 20px;
+}
+</style>
+

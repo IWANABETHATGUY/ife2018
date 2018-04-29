@@ -1,0 +1,75 @@
+<template>
+  <div class="container">
+    <!-- <input type="text" value="{= query =}"> -->
+    <h1>点击某一个列表项查看详细信息</h1>
+    <ul class="list" >
+      <li class="list-item" 
+      s-for="item, index in list" 
+      s-transition="hook('example', 300)"
+      on-click="handleClick(index)">{{item}}</li>
+    </ul>
+    <display-card
+    s-if="cardShow"
+    title="{{displayItem.value}}"
+    details="this is details"></display-card>
+  </div>
+</template>
+
+<script>
+import { transition } from 'san-transition';
+import DisPlayCard from './component/DisplayCard.san';
+export default {
+  components: {
+    'display-card': DisPlayCard
+  },
+  initData() {
+    return {
+      query: '',
+      cardShow: false,
+      displayItem: null,
+      list: ['标题1', '标题2', '标题3', '标题4']
+    }
+  },
+  hook: transition,
+  handleClick(index) {
+    this.data.set('displayItem', {
+      value: this.data.get(`list[${index}]`),
+      index
+    });
+    console.log(this.data.get('displayItem'));
+    this.data.set('cardShow', true);
+    this.data.removeAt('list', index);
+  },
+  messages: {
+    'close'() {
+      this.data.set('cardShow', false);
+      this.data.splice('list', [this.data.get('displayItem.index'), 0, this.data.get('displayItem.value')]);
+    }
+  }
+}
+</script>
+
+<style>
+.container {
+  width: 80%;
+  margin: auto;
+  border: 1px solid #ccc;
+}
+.list-item {
+  list-style: none;
+}
+.example-enter, .example-leave {
+  transition: all .5s ease-out;
+}
+.example-before-enter, .example-leave {
+  transform: translate(-30px);
+  opacity: 0;
+}
+  
+.example-before-leave, .example-enter {
+  opacity: 1;
+  /* transform: translate(30px); */
+  
+}
+
+</style>
