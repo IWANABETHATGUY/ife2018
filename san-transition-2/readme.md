@@ -1,2 +1,2 @@
-# 2.7.1 使用s-transition指令实现过渡动画
+# 2.7.2 基于san-transition的过渡动画
 
