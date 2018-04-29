@@ -1,0 +1,66 @@
+<template>
+  <div class="container">
+    <button on-click="toggle">TOGGLE</button>
+    <p s-transition="hook" s-if="show">
+      Transition Layer
+    </p>
+  </div>
+</template>
+
+<script>
+export default {
+  initData() {
+    return {
+      show: false
+    }
+  },
+  toggle() {
+    this.data.set('show', !this.data.get('show'));
+  },
+  hook: {
+    enter(el, done) {
+      const steps = 20;
+      let currentStep = 0;
+
+      function next() {
+        if (currentStep >= steps) {
+          el.style.opacity = 1;
+          done();
+          return;
+        }
+
+        el.style.opacity = 1 / steps * currentStep++;
+        requestAnimationFrame(next);
+      }
+
+      next();
+    },
+
+    leave(el, done) {
+      const steps = 20;
+      let currentStep = 0;
+
+      function next() {
+        if (currentStep >= steps) {
+          el.style.opacity = 0;
+          done();
+          return;
+        }
+
+        el.style.opacity = 1 - 1 / steps * currentStep++;
+        requestAnimationFrame(next);
+      }
+
+      next();
+    }
+  }
+}
+</script>
+
+<style>
+.container {
+  width: 80%;
+  margin: auto;
+  border: 1px solid #ccc;
+}
+</style>
