@@ -1,21 +1,36 @@
 <template>
+<div>
+  <h1>使用js控制</h1>
   <div class="container">
-    <button on-click="toggle">TOGGLE</button>
-    <p s-transition="hook" s-if="show">
-      Transition Layer
+    <button on-click="jsToggle">TOGGLE</button>
+    <p s-transition="hook" s-if="jsShow">
+      JS Transition Layer
     </p>
   </div>
+  <h1>使用css控制</h1>
+  <div class="container">
+    <button on-click="cssToggle">TOGGLE</button>
+    <p s-transition="css" s-if="cssShow">
+      CSS Transition Layer
+    </p>
+  </div>
+</div>
+  
 </template>
 
 <script>
 export default {
   initData() {
     return {
-      show: false
+      jsShow: false,
+      cssShow: false
     }
   },
-  toggle() {
-    this.data.set('show', !this.data.get('show'));
+  jsToggle() {
+    this.data.set('jsShow', !this.data.get('jsShow'));
+  },
+  cssToggle() {
+    this.data.set('cssShow', !this.data.get('cssShow'));
   },
   hook: {
     enter(el, done) {
@@ -53,6 +68,36 @@ export default {
 
       next();
     }
+  },
+  css: {
+    enter(el, done) {
+      const listener = () => {
+        el.classList.remove('before-enter', 'enter');
+        el.removeEventListener('transitionend', listener);
+        done();
+      }
+      el.addEventListener("transitionend", listener);
+      
+      el.classList.add('before-enter');
+      setTimeout(() => {
+        el.classList.add('enter');
+      }, 0);
+    },
+
+    leave(el, done) {
+      const listener = () => {
+        el.classList.remove('leave');
+        el.removeEventListener('transitionend', listener);
+        done();
+      }
+      el.addEventListener('transitionend', listener);
+      el.classList.add('before-leave');
+      setTimeout(() => {
+        el.classList.remove('before-leave');
+        el.classList.add('leave');
+      }, 0);
+      
+    }
   }
 }
 </script>
@@ -62,5 +107,16 @@ export default {
   width: 80%;
   margin: auto;
   border: 1px solid #ccc;
+}
+.enter, .leave {
+  transition: all .5s;
+}
+
+.before-enter, .leave {
+  opacity: 0;
+}
+
+.enter, .before-leave {
+  opacity: 1;
 }
 </style>
