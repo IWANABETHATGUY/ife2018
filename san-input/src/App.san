@@ -1,8 +1,16 @@
 <template>
   <div class="container">
-    <san-header mainTitle="输入框" type="控件" titleEn="input"></san-header>
+    <san-header 
+    mainTitle="输入框" 
+    type="控件" 
+    titleEn="input" 
+    content="待补充"></san-header>
     <div class="gallary">
-      <san-input initValue="{= resValue =}" maxLength="{{10}}" placeholder="请输入什么东西..."></san-input>
+      <san-input 
+      initValue="{= resValue =}" 
+      maxLength="{{10}}" 
+      placeholder="请输入什么东西..."
+      errorText="输入长度超过10"></san-input>
       <hr>
       <san-input maxLength="{{10}}" placeholder="请输入什么东西..." disabled="{{disabled}}"></san-input>
       <button on-click="handleClickChangeStatus">点击禁用</button>

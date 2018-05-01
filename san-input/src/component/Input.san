@@ -25,7 +25,7 @@ export default {
       width: 200,
       error: false,
       maxLength: Number.MAX_SAFEINTEGER,
-      errorText: 'what the fuck is that'
+      errorText: ''
     }
   },
   handleInput() {

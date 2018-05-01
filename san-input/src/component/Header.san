@@ -1,14 +1,14 @@
 <template>
   <div class="header-container">
     <div class="content-container">
-      <div class="main-title"><h1>{{mainTitle}}</h1></div>
+      <div class="main-title">{{mainTitle}}</div>
       <div class="side-introduction">
-        <span class="type">{{type}}</span>
-        <span class="side-title-en">{{titleEn}}</span>
+        <div class="type">{{type}}</div>
+        <div class="side-title-en">{{titleEn}}</div>
       </div>
-      <div></div>
     </div>
-
+    <div class="content">{{content}}</div>
+    
   </div>
 </template>
 
@@ -18,7 +18,8 @@ export default {
     return {
       mainTitle: '',
       type: '',
-      titleEn: ''
+      titleEn: '',
+      content: ''
     }
   }
 }
@@ -30,22 +31,32 @@ export default {
 }
 .content-container {
   display: flex;
-  padding: 30px 20px;
+  padding: 30px 20px 10px 20px;
 }
 .main-title {
   height: 50px;
-}
-.main-title > h1 {
   line-height: 50px;
   color: white;
+  font-size: 40px;
 }
 .side-introduction {
+  display: flex;
+  flex-direction: column;
   height: 50px;
+  margin-left: 10px;
+  text-align: center;
 }
 .type {
   height: 25px;
+  background: #d8cccc;
+  color: #717171;
 }
 .side-introduction {
   height: 25px;
+  color: #d8cccc;
+}
+.content {
+  padding: 0 20px 10px 20px;
+  color: #d8cccca9;
 }
 </style>
