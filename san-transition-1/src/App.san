@@ -73,29 +73,31 @@ export default {
     enter(el, done) {
       const listener = () => {
         el.classList.remove('before-enter', 'enter');
-        el.removeEventListener('transitionend', listener);
         done();
+        // el.removeEventListener('transitionend', listener);
       }
       el.addEventListener("transitionend", listener);
       
       el.classList.add('before-enter');
+
       setTimeout(() => {
         el.classList.add('enter');
-      }, 0);
+      }, 1);
     },
 
     leave(el, done) {
+      el.classList.remove('before-enter', 'enter');
       const listener = () => {
-        el.classList.remove('leave');
-        el.removeEventListener('transitionend', listener);
         done();
+        el.classList.remove('leave');
+        // el.removeEventListener('transitionend', listener);
       }
       el.addEventListener('transitionend', listener);
       el.classList.add('before-leave');
       setTimeout(() => {
         el.classList.remove('before-leave');
         el.classList.add('leave');
-      }, 0);
+      }, 1);
       
     }
   }
