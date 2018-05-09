@@ -1,0 +1,62 @@
+<template>
+  <div class="header-container">
+    <div class="content-container">
+      <div class="main-title">{{mainTitle}}</div>
+      <div class="side-introduction">
+        <div class="type">{{type}}</div>
+        <div class="side-title-en">{{titleEn}}</div>
+      </div>
+    </div>
+    <div class="content">{{content}}</div>
+    
+  </div>
+</template>
+
+<script>
+export default {
+  initData() {
+    return {
+      mainTitle: '',
+      type: '',
+      titleEn: '',
+      content: ''
+    }
+  }
+}
+</script>
+
+<style>
+.header-container {
+  background-color: #5c5c5c;
+}
+.content-container {
+  display: flex;
+  padding: 30px 20px 10px 20px;
+}
+.main-title {
+  height: 50px;
+  line-height: 50px;
+  color: white;
+  font-size: 40px;
+}
+.side-introduction {
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  margin-left: 10px;
+  text-align: center;
+}
+.type {
+  height: 25px;
+  background: #d8cccc;
+  color: #717171;
+}
+.side-introduction {
+  height: 25px;
+  color: #d8cccc;
+}
+.content {
+  padding: 0 20px 10px 20px;
+  color: #d8cccca9;
+}
+</style>
