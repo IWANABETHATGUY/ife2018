@@ -4,7 +4,7 @@
       {{item.label}}
       <recusive-item
       class="position"
-      active="{{index ===  ind? 'active' : ''}}"
+      active="{{index === ind ? 'active' : ''}}"
       s-if="{{item.children.length}}"
       list="{{item.children}}"
       ></recusive-item>
