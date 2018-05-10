@@ -5,7 +5,7 @@
       <recusive-item
       class="position"
       active="{{index === ind ? 'active' : ''}}"
-      s-if="{{item.children.length}}"
+      s-if="{{item.children.length && index === ind}}"
       list="{{item.children}}"
       ></recusive-item>
     </li>
@@ -36,10 +36,10 @@ export default {
       }
       return false;
     });
+    if (this.data.get('ind') === index) {
+      index = -1;
+    }
     this.data.set('ind', index);
-    this.nextTick(() => {
-
-    });
   }
 };
 </script>
