@@ -1,5 +1,71 @@
 <template>
-  <ul class="san-recursive-list">
-    
+  <ul class="san-recursive-list {{class}} {{active}}">
+    <li s-for="item, index in list"  on-click="handleClick" class="san-recursive-item">
+      {{item.label}}
+      <recusive-item
+      class="position"
+      active="{{index ===  ind? 'active' : ''}}"
+      s-if="{{item.children.length}}"
+      list="{{item.children}}"
+      ></recusive-item>
+    </li>
   </ul>
 </template>
+<script>
+export default {
+  components: {
+    'recusive-item': 'self'
+  },
+  initData() {
+    return {
+      list: null,
+      class: '',
+      ind: -1,
+      active: ''
+    }
+  },
+  handleClick(e) {
+    const target = e.target;
+    e.stopPropagation();
+    let siblings = Array.from(target.parentNode.children);
+    let index;
+    siblings.some((item, ind) => {
+      if (item === target) {
+        index = ind;
+        return true;
+      }
+      return false;
+    });
+    console.log(index);
+    this.data.set('ind', index);
+  }
+};
+</script>
+
+<style>
+  .san-recursive-item {
+    position: relative;
+    padding-left: 5px;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .san-recursive-item:hover {
+    background: rgb(109, 171, 221);
+  }
+  .san-recursive-list {
+    padding-left: 0;
+    width: 100px;
+    border: 1px solid #ccc;
+  }
+
+  .position {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    visibility: hidden;
+  }
+  .active {
+    visibility: visible;
+  }
+</style>
