@@ -6,9 +6,12 @@
     titleEn="recursiveConponent"
     content="可以通过递归数据进行渲染，点击一级菜单，弹出下一级菜单"
     ></header>
-    <div>
+    <span>{{selectResult}}</span>
+    <div class="cascade-container">
       <recursive-component
-      list="{{list}}">
+      list="{{list}}"
+      result="{= selectArray =}"
+      >
       </recursive-component>
     </div>
   </div>
@@ -85,7 +88,13 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      selectArray: ['']
+    }
+  },
+  computed: {
+    selectResult() {
+      return this.data.get('selectArray').join('/');
     }
   }
 }
@@ -97,5 +106,9 @@ export default {
   width: 80%;
   margin: auto;
   
+}
+.cascade-container {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 2px solid #ccc;
 }
 </style>

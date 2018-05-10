@@ -1,12 +1,15 @@
 <template>
   <ul class="san-recursive-list {{class}} {{active}}">
-    <li s-for="item, index in list"  on-click="handleClick" class="san-recursive-item">
-      {{item.label}}
+    <li s-for="item, index in list"  
+    on-click="handleClick($event, item)" 
+    class="san-recursive-item {{index === ind ? 'active' : ''}} {{item.children.length ? 'more' : ''}}">
+      <span style="line-height: 24px;">{{item.label}}</span>
       <recusive-item
       class="position"
-      active="{{index === ind ? 'active' : ''}}"
+      active="{{index === ind ? 'open' : ''}}"
       s-if="{{item.children.length && index === ind}}"
       list="{{item.children}}"
+      on-finish-select="handleFinishSelect($event, item)"
       ></recusive-item>
     </li>
   </ul>
@@ -21,25 +24,36 @@ export default {
       list: null,
       class: '',
       ind: -1,
-      active: ''
+      active: '',
+      result: []
     }
   },
-  handleClick(e) {
-    const target = e.target;
+  handleClick(e, item) {
     e.stopPropagation();
+    this.data.set('result', [item.label]);
+    let target = e.target;
+    if (target.tagName !== 'LI') {
+      target = target.parentNode;
+    }
     let siblings = Array.from(target.parentNode.children);
-    let index;
-    siblings.some((item, ind) => {
-      if (item === target) {
+    let index = -1;
+    siblings.some((it, ind) => {
+      if (it.innerText === item.label) {
         index = ind;
         return true;
       }
       return false;
     });
-    if (this.data.get('ind') === index) {
-      index = -1;
-    }
     this.data.set('ind', index);
+    if (!item.children || !item.children.length) {
+      this.fire('finish-select', this.data.get('result'));
+    }
+    
+  },
+  handleFinishSelect(res, item) {
+    this.data.set('result', [item.label, ...res]);
+    this.fire('finish-select', this.data.get('result'));
+    console.log(this.data.get('result'));
   }
 };
 </script>
@@ -51,9 +65,15 @@ export default {
     list-style: none;
     cursor: pointer;
   }
-
+  .san-recursive-item.more::after {
+    content: ">";
+    position: absolute;
+    right: 16px;
+    display: inline-block;
+    line-height: 24px;
+  }
   .san-recursive-item:hover {
-    background: rgb(109, 171, 221);
+    background: #ccc;
   }
   .san-recursive-list {
     padding-left: 0;
@@ -67,7 +87,11 @@ export default {
     top: 0;
     visibility: hidden;
   }
-  .active {
+  .open {
     visibility: visible;
+  }
+
+  .active {
+    background: #20a0ff !important;
   }
 </style>
