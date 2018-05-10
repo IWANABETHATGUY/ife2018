@@ -36,8 +36,10 @@ export default {
       }
       return false;
     });
-    console.log(index);
     this.data.set('ind', index);
+    this.nextTick(() => {
+
+    });
   }
 };
 </script>
