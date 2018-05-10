@@ -1,0 +1,101 @@
+<template>
+  <div class="container">
+    <header
+    mainTitle="递归组件"
+    type="组件"
+    titleEn="recursiveConponent"
+    content="可以通过递归数据进行渲染，点击一级菜单，弹出下一级菜单"
+    ></header>
+    <div>
+      <recursive-component
+      list="{{list}}">
+      </recursive-component>
+    </div>
+  </div>
+</template>
+
+<script>
+import Header from './component/Header.san';
+import Parent from './component/parent.san';
+export default {
+  components: {
+    'header': Header,
+    'recursive-component': Parent
+  },
+  initData() {
+    return {
+      list: [
+        {
+          value: "zhinan",
+          label: "指南",
+          children: [
+            {
+              value: "shejiyuanze",
+              label: "设计原则",
+              children: [
+                {
+                  value: "yizhi",
+                  label: "一致"
+                },
+                {
+                  value: "fankui",
+                  label: "反馈"
+                },
+                {
+                  value: "xiaolv",
+                  label: "效率"
+                },
+                {
+                  value: "kekong",
+                  label: "可控"
+                }
+              ]
+            },
+            {
+              value: "daohang",
+              label: "导航",
+              children: [
+                {
+                  value: "cexiangdaohang",
+                  label: "侧向导航"
+                },
+                {
+                  value: "dingbudaohang",
+                  label: "顶部导航"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          value: "ziyuan",
+          label: "资源",
+          children: [
+            {
+              value: "axure",
+              label: "Axure Components"
+            },
+            {
+              value: "sketch",
+              label: "Sketch Templates"
+            },
+            {
+              value: "jiaohu",
+              label: "组件交互文档"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+</script>
+
+<style>
+.container {
+  position: relative;
+  width: 80%;
+  margin: auto;
+  
+}
+</style>
